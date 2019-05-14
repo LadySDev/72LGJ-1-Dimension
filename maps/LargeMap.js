@@ -1,4 +1,4 @@
-﻿export class NormalMap{
+﻿export class LargeMap{
 
 	constructor(){
 
@@ -11,15 +11,15 @@
 			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
 			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
 			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
-			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1], // center
 			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
 			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
-			[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],			
-			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+			[1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],			
+			[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
 		];
 
 		this.doorData = [
@@ -66,7 +66,7 @@
 	}
 
 	createMap(scene, playerPosX, playerPosY){
-		
+
 		this.obstacles = scene.add.group();
 
 		this.map = scene.make.tilemap(this.config);		
@@ -121,7 +121,7 @@
 			}
 			else if(tile.index === 40){
 
-				var portalLeft = this.createSprite(scene, tile.x, tile.y, 40-11, 0, 11, 40);				
+				var portalLeft = this.createSprite(scene, tile.x, tile.y, 40-11, 0, 11, 40);
 				this.obstacles.add(portalLeft);﻿
 
 			}
@@ -138,8 +138,7 @@
 			}
 
 		});
-
-		
+				
 		scene.player.createSprite(scene, playerPosX, playerPosY);
 
 		this.playerGroundCollider = scene.physics.add.collider(scene.player.sprite, this.ground);
@@ -149,7 +148,7 @@
 		return this;
 
 	}
-	
+
 	destroyMap(scene){
 
 		scene.physics.world.removeCollider(this.playerGroundCollider);
