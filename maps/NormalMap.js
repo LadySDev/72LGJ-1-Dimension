@@ -25,7 +25,7 @@
 		this.doorData = [
 			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			[0,0,0,0,20,21,22,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-			[0,0,0,0,40,41,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+			[0,0,0,0,40,43,42,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			[0,0,0,0,60,61,62,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 			[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -68,6 +68,13 @@
 	createMap(scene, playerPosX, playerPosY){
 		
 		this.obstacles = scene.add.group();
+		scene.anims.create({
+			key: 'spirale',
+			frames: scene.anims.generateFrameNumbers('tileset', { start: 43, end: 46 }),
+			frameRate: 3,
+			repeat: -1,
+			showOnStart: true
+		});
 
 		this.map = scene.make.tilemap(this.config);		
 		this.tiles = this.map.addTilesetImage('tileset');
@@ -125,10 +132,13 @@
 				this.obstacles.add(portalLeft);﻿
 
 			}
-			else if(tile.index === 41){
+			else if(tile.index === 43){
 
-				this.portal = this.createSprite(scene, tile.x, tile.y, 0, 0, 40, 40);					
-
+				this.portal = this.createSprite(scene, tile.x, tile.y, 0, 0, 40, 40);
+				//this.portal.anims.load('spirale');
+				//this.portal.anims.play('spirale');
+				scene.anims.play('spirale', this.portal);
+				
 			}
 			else if(tile.index === 42){
 
@@ -138,8 +148,7 @@
 			}
 
 		});
-
-		
+								
 		scene.player.createSprite(scene, playerPosX, playerPosY);
 
 		this.playerGroundCollider = scene.physics.add.collider(scene.player.sprite, this.ground);

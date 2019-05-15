@@ -11,7 +11,7 @@ export class ManagerScene extends Phaser.Scene{
 
 	preload(){
 	
-		 this.load.image('tileset', '../resources/tileset.png');
+		 this.load.spritesheet('tileset', '../resources/tileset.png', { frameWidth: 40, frameHeight: 40 });
 	
 		this.load.tilemapTiledJSON('1erjson', '../1.json');
 		this.load.tilemapTiledJSON('2emejson', '../2.json');
