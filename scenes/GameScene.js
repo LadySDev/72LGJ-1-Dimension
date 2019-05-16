@@ -1,5 +1,7 @@
 ﻿import { MapManager } from '../MapManager.js';
 import { Player } from '../Player.js';
+import { NormalMap } from '../maps/NormalMap.js';
+import { LargeMap } from '../maps/LargeMap.js';
 
 export class GameScene extends Phaser.Scene{
 
@@ -14,7 +16,7 @@ export class GameScene extends Phaser.Scene{
 		this.managerScene = this.scene.get('ManagerScene');
 		this.mapManager = new MapManager(this);
 		this.player = new Player();
-		this.spawnPoint = [11, 3];
+		this.spawnPoint = [10, 4];
 
 	}
 
@@ -24,12 +26,10 @@ export class GameScene extends Phaser.Scene{
 
 	create(){
 	
-		console.log("GameScene create");
-
 		this.mapManager.createNormalMap(this.spawnPoint[0]*40 - 40 + 20, this.spawnPoint[1]*40 - 40);
 
 		this.physics.add.overlap(this.player.sprite, this.mapManager.normalMap.portal, this.overlapInPortalAction.bind(this));
-
+		
 		this.input.keyboard.on('keydown_Z', function (event) {
 					
 			if(this.player.sprite !== null){
@@ -89,15 +89,36 @@ export class GameScene extends Phaser.Scene{
 	
 	overlapInPortalAction(scene, object1, object2){
 	
-		console.log("portal activation");
+		if(this.mapManager.currentMap instanceof NormalMap){
+
+			this.mapManager.createLargeMap(14 * 40 - 40 + 20, 7 * 40 - 40);
+			this.activePortalLargeOverlap = true;
+
+		}
+		else if(this.mapManager.currentMap instanceof LargeMap){
+
+			this.mapManager.createNormalMap(6 * 40 - 40 + 20, 7 * 40 - 40);
+			this.activePortalNormalOverlap = true;
+
+		}
 		
-		this.mapManager.createLargeMap(5, 4);
 
 	}
 
-
 	update(){
 		
+		if(this.activePortalNormalOverlap === true){
+			
+			this.physics.add.overlap(this.player.sprite, this.mapManager.normalMap.portal, this.overlapInPortalAction.bind(this));
+			this.activePortalNormalOverlap = false;
+		}
+
+		if(this.activePortalLargeOverlap === true){
+			
+			this.physics.add.overlap(this.player.sprite, this.mapManager.largeMap.portal, this.overlapInPortalAction.bind(this));
+			this.activePortalLargeOverlap = false;
+		}
+
 	}
 
 }

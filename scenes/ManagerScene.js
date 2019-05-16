@@ -23,8 +23,6 @@ export class ManagerScene extends Phaser.Scene{
 
 	create(){
 	
-		console.log("ManagerScene create");
-
 		this.scene.add('GameScene', GameScene, true);
 		
 	}

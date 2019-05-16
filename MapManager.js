@@ -29,7 +29,7 @@ export class MapManager{
 			this.currentMap.destroyMap(this.scene);
 		}
 
-		this.largeMap.createMap(this.scene, posX, posY);
+		this.currentMap = this.largeMap.createMap(this.scene, posX, posY);
 		
 	}
 
